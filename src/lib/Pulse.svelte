@@ -1,8 +1,9 @@
 <script lang="ts">
-  let audioCtx = new AudioContext();
+  export let audioCtx;
   let pulseTime = 1;
   export let pulseHz;
   let osc;
+  let playing = false;
 
   function play() {
     if (osc) {
@@ -19,10 +20,12 @@
 
     osc.connect(audioCtx.destination);
     osc.start();
+    playing = true;
   }
 
   function stop() {
     osc.stop();
+    playing = false;
   }
 
   function keyPlay(e) {
@@ -39,15 +42,25 @@
 </script>
 
 <button
+  class:playing
   on:mousedown={play}
   on:mouseup={stop}
   on:keydown={keyPlay}
-  on:keyup={keyStop}><slot /></button
+  on:keyup={keyStop}
+  on:touchstart={play}
+  on:touchend={stop}><slot /></button
 >
 
 <style>
-  button:active {
+  button:hover {
+    background-color: purple;
+  }
+  button.playing {
     background-color: gold;
     color: black;
+  }
+  button {
+    user-select: none;
+    -webkit-user-select: none;
   }
 </style>
