@@ -1,6 +1,5 @@
 <script lang="ts">
   export let audioCtx;
-  let pulseTime = 1;
   export let pulseHz;
   let osc;
   let playing = false;
@@ -11,12 +10,8 @@
     }
     osc = audioCtx.createOscillator();
     osc.type = "sine";
+
     osc.frequency.setValueAtTime(pulseHz, audioCtx.currentTime);
-
-    let amp = audioCtx.createGain();
-    amp.gain.value = 0.5;
-
-    osc.connect(amp);
 
     osc.connect(audioCtx.destination);
     osc.start();
@@ -24,8 +19,10 @@
   }
 
   function stop() {
-    osc.stop();
-    playing = false;
+    if (osc) {
+      osc.stop();
+      playing = false;
+    }
   }
 
   function keyPlay(e) {

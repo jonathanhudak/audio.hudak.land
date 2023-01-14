@@ -1,7 +1,31 @@
 <script lang="ts">
   import Pulse from "./lib/Pulse.svelte";
+  import Gain from "./lib/Gain.svelte";
   import Note from "@tonaljs/note";
-  let ctx = new AudioContext();
+  let audioCtx = new AudioContext();
+  let amp = audioCtx.createGain();
+  let initialValues = {
+    gain: 0.2,
+  };
+
+  let source: MediaStreamAudioSourceNode;
+
+  if (navigator.mediaDevices.getUserMedia) {
+    navigator.mediaDevices
+      .getUserMedia({
+        audio: true,
+      })
+      .then((stream) => {
+        console.log(stream);
+        source = audioCtx.createMediaStreamSource(stream);
+        source.connect(amp);
+      });
+  } else {
+    console.error("getUserMedia not supported on your browser!");
+  }
+
+  amp.connect(audioCtx.destination);
+
   let notes = "CDEFGAB".split("");
   let octaves = [0, 1, 2, 3, 4, 5, 6];
   let frequencies = octaves
@@ -15,10 +39,11 @@
 </script>
 
 <main>
+  <Gain {audioCtx} {amp} initialGain={initialValues.gain} />
   <ol>
     {#each frequencies as [name, f]}
       <li>
-        <Pulse pulseHz={f} audioCtx={ctx}>{name}</Pulse>
+        <Pulse pulseHz={f} {audioCtx}>{name}</Pulse>
       </li>
     {/each}
   </ol>
