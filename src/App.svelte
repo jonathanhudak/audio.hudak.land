@@ -1,5 +1,6 @@
 <script lang="ts">
   import Pulse from "./lib/Pulse.svelte";
+  import CurrentKey from "./lib/CurrentKey.svelte";
   import Gain from "./lib/Gain.svelte";
   import Note from "@tonaljs/note";
   let audioCtx = new AudioContext();
@@ -11,15 +12,16 @@
   let source: MediaStreamAudioSourceNode;
 
   if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices
-      .getUserMedia({
-        audio: true,
-      })
-      .then((stream) => {
-        console.log(stream);
-        source = audioCtx.createMediaStreamSource(stream);
-        source.connect(amp);
-      });
+    // Disabled because it's annoying to have to allow microphone access
+    // navigator.mediaDevices
+    //   .getUserMedia({
+    //     audio: true,
+    //   })
+    //   .then((stream) => {
+    //     console.log(stream);
+    //     source = audioCtx.createMediaStreamSource(stream);
+    //     source.connect(amp);
+    //   });
   } else {
     console.error("getUserMedia not supported on your browser!");
   }
@@ -39,6 +41,7 @@
 </script>
 
 <main>
+  <CurrentKey />
   <Gain {audioCtx} {amp} initialGain={initialValues.gain} />
   <ol>
     {#each frequencies as [name, f]}
