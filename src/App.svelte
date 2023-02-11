@@ -42,7 +42,7 @@
 
 <main>
   <CurrentKey />
-  <Gain {audioCtx} {amp} initialGain={initialValues.gain} />
+  <!-- <Gain {audioCtx} {amp} initialGain={initialValues.gain} /> -->
   <ol>
     {#each frequencies as [name, f]}
       <li>
