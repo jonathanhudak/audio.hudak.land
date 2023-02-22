@@ -3,24 +3,40 @@
   export let pulseHz;
   let osc;
   let playing = false;
+  const Z_DISTANCE = 20;
 
-  function play() {
+  function play(NOTE_LENGTH: number = 5) {
     if (osc) {
       osc.stop();
     }
     osc = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    osc.addEventListener("ended", stop);
     osc.type = "sine";
 
     osc.frequency.setValueAtTime(pulseHz, audioCtx.currentTime);
+    const panner = new PannerNode(audioCtx);
+    panner.refDistance = 1;
 
-    osc.connect(audioCtx.destination);
-    osc.start();
+    panner.positionZ.setValueAtTime(
+      audioCtx.currentTime,
+      audioCtx.currentTime + NOTE_LENGTH
+    );
+    panner.positionZ.linearRampToValueAtTime(
+      Z_DISTANCE,
+      audioCtx.currentTime + NOTE_LENGTH
+    );
+
+    osc.connect(panner).connect(audioCtx.destination);
+    osc.start(audioCtx.currentTime);
+    osc.stop(audioCtx.currentTime + NOTE_LENGTH);
     playing = true;
   }
 
   function stop() {
     if (osc) {
-      osc.stop();
+      // osc.stop();
       playing = false;
     }
   }
@@ -40,11 +56,11 @@
 
 <button
   class:playing
-  on:mousedown={play}
+  on:mousedown={() => play()}
   on:mouseup={stop}
   on:keydown={keyPlay}
   on:keyup={keyStop}
-  on:touchstart={play}
+  on:touchstart={() => play()}
   on:touchend={stop}><slot /></button
 >
 

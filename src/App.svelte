@@ -8,27 +8,9 @@
   let initialValues = {
     gain: 0.2,
   };
-
-  let source: MediaStreamAudioSourceNode;
-
-  if (navigator.mediaDevices.getUserMedia) {
-    // Disabled because it's annoying to have to allow microphone access
-    // navigator.mediaDevices
-    //   .getUserMedia({
-    //     audio: true,
-    //   })
-    //   .then((stream) => {
-    //     console.log(stream);
-    //     source = audioCtx.createMediaStreamSource(stream);
-    //     source.connect(amp);
-    //   });
-  } else {
-    console.error("getUserMedia not supported on your browser!");
-  }
-
   amp.connect(audioCtx.destination);
 
-  let notes = "CDEFGAB".split("");
+  let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
   let octaves = [0, 1, 2, 3, 4, 5, 6];
   let frequencies = octaves
     .map((o) =>
@@ -41,7 +23,7 @@
 </script>
 
 <main>
-  <CurrentKey />
+  <!-- <CurrentKey /> -->
   <!-- <Gain {audioCtx} {amp} initialGain={initialValues.gain} /> -->
   <ol>
     {#each frequencies as [name, f]}
