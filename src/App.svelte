@@ -1,13 +1,9 @@
 <script lang="ts">
   import Pulse from "./lib/Pulse.svelte";
   import CurrentKey from "./lib/CurrentKey.svelte";
-  import Gain from "./lib/Gain.svelte";
   import Note from "@tonaljs/note";
   let audioCtx = new AudioContext();
   let amp = audioCtx.createGain();
-  let initialValues = {
-    gain: 0.2,
-  };
   amp.connect(audioCtx.destination);
 
   let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
@@ -23,8 +19,7 @@
 </script>
 
 <main>
-  <!-- <CurrentKey /> -->
-  <!-- <Gain {audioCtx} {amp} initialGain={initialValues.gain} /> -->
+  <CurrentKey />
   <ol>
     {#each frequencies as [name, f]}
       <li>
@@ -47,8 +42,8 @@
   }
 
   @media (min-width: 500px) {
-    /* ol {
+    ol {
       grid-template-columns: repeat(7, min-content);
-    } */
+    }
   }
 </style>

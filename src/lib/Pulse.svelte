@@ -30,13 +30,12 @@
 
     osc.connect(panner).connect(audioCtx.destination);
     osc.start(audioCtx.currentTime);
-    osc.stop(audioCtx.currentTime + NOTE_LENGTH);
     playing = true;
   }
 
   function stop() {
     if (osc) {
-      // osc.stop();
+      osc.stop();
       playing = false;
     }
   }

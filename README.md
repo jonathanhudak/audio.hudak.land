@@ -1,8 +1,9 @@
 # audio.hudak.land
 
-## References
+## Web Audio API References
 
 * https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Advanced_techniques
+* https://developer.mozilla.org/en-US/docs/Web/API/PannerNode/refDistance
 
 ## Svelte + TS + Vite
 
