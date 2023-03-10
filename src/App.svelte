@@ -23,7 +23,7 @@
   <ol>
     {#each frequencies as [name, f]}
       <li>
-        <Pulse pulseHz={f} {audioCtx}>{name}</Pulse>
+        <Pulse pulseHz={f}>{name}</Pulse>
       </li>
     {/each}
   </ol>
