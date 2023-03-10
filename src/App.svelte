@@ -1,6 +1,6 @@
 <script lang="ts">
   import Pulse from "./lib/Pulse.svelte";
-  import CurrentKey from "./lib/CurrentKey.svelte";
+  import KeyBoard from "./lib/KeyBoard.svelte";
   import Note from "@tonaljs/note";
   let audioCtx = new AudioContext();
   let amp = audioCtx.createGain();
@@ -19,7 +19,7 @@
 </script>
 
 <main>
-  <CurrentKey />
+  <KeyBoard />
   <ol>
     {#each frequencies as [name, f]}
       <li>

@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { derived } from "svelte/store";
   export let pulseHz;
-  import { play, stop } from "./keyPressStore";
-  let playing = false;
+  import { play, stop, playedFrequencies } from "./keyPressStore";
 
   function stopPulse() {
     stop(pulseHz);
@@ -25,7 +25,7 @@
 </script>
 
 <button
-  class:playing
+  class:playing={$playedFrequencies.includes(pulseHz)}
   on:mousedown={playPulse}
   on:mouseup={stopPulse}
   on:keydown={keyPlay}
