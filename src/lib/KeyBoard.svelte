@@ -4,11 +4,12 @@
   import { mapping } from "./keyMappings";
   import { onMount } from "svelte";
   import { play, stop } from "./keyPressStore";
+  const KEYBOARD_MAPPING = mapping["max"];
 
   let keyDown = (e) => {
     const k = e.key;
     if ($currentKeys.indexOf(k) === -1) {
-      const mappedNote = mapping.real[k];
+      const mappedNote = KEYBOARD_MAPPING[k];
       $currentKeys = [...$currentKeys, k];
       $notes = [...$notes, mappedNote].filter((n) => !!n);
       play(Note.freq(mappedNote));
@@ -16,9 +17,11 @@
   };
 
   let keyUp = (e) => {
-    const mappedNote = mapping.real[e.key];
+    const mappedNote = KEYBOARD_MAPPING[e.key];
     $currentKeys = [...$currentKeys.filter(() => !e.key)];
-    $notes = [...$notes.filter(() => !mapping.real[e.key])].filter((n) => !!n);
+    $notes = [...$notes.filter(() => !KEYBOARD_MAPPING[e.key])].filter(
+      (n) => !!n
+    );
     stop(Note.freq(mappedNote));
   };
 
