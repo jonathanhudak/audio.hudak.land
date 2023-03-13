@@ -1,7 +1,7 @@
 <script lang="ts">
   import { derived } from "svelte/store";
   export let pulseHz;
-  import { play, stop, playedFrequencies } from "./keyPressStore";
+  import { play, stop, playedFrequencies } from "./audioController";
 
   function stopPulse() {
     stop(pulseHz);

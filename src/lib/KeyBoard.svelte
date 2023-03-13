@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { notes, currentKeys } from "./keyPressStore";
+  import { notes, currentKeys, play, stop } from "./audioController";
   import Note from "@tonaljs/note";
   import { mapping } from "./keyMappings";
   import { onMount } from "svelte";
-  import { play, stop } from "./keyPressStore";
   const KEYBOARD_MAPPING = mapping["max"];
 
   let keyDown = (e) => {
