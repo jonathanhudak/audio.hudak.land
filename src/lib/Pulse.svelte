@@ -45,5 +45,7 @@
   button {
     user-select: none;
     -webkit-user-select: none;
+    height: 300px;
+    font-size: 10px;
   }
 </style>

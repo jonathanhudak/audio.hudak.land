@@ -7,7 +7,7 @@
   amp.connect(audioCtx.destination);
 
   let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-  let octaves = [0, 1, 2, 3, 4, 5, 6];
+  let octaves = [3, 4];
   let frequencies = octaves
     .map((o) =>
       notes.map((n) => {
@@ -33,12 +33,9 @@
   ol {
     list-style: none;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
     gap: 4px;
     margin: 0;
-    padding: 0;
+    padding: 4px;
   }
 
   @media (min-width: 500px) {
